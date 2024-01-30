@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export function BookingCard() {
+export function PropertyCard() {
   const checklogin = localStorage.getItem('token');
   console.log('checklogin', typeof checklogin);
   const navigate = useNavigate();

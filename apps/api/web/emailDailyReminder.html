@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengingat Check-In</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        color: #333333;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .email-content {
+        max-width: 600px;
+        background-color: #ffffff;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .email-content h1 {
+        color: #4a90e2;
+        margin-bottom: 20px;
+      }
+      .email-content p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-content">
+        <h1>Pengingat Check-In</h1>
+        <p>
+          Hai <strong>{{name}}</strong>,<br />
+          Kami ingin mengingatkan bahwa check-in kamar {{room}} Anda dijadwalkan
+          untuk besok {{checkInDate}}. Kami menantikan kedatangan Anda di
+          {{hotel}}!
+        </p>
+        <p>
+          Jika Anda memiliki pertanyaan atau membutuhkan informasi lebih lanjut,
+          silakan hubungi kami.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

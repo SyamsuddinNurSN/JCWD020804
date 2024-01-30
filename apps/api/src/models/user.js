@@ -33,7 +33,7 @@ export const init = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       isVerified: { type: DataTypes.BOOLEAN, defaultValue: false },
       isTenant: { type: DataTypes.BOOLEAN, defaultValue: false },
@@ -49,7 +49,12 @@ export const init = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      firebaseUID: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
+
     {
       sequelize,
       modelName: 'User',

@@ -11,12 +11,16 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loginImage from '../../assets/masnstay.jpg';
-import { Link, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { registerWithGoogle } from '../../../../api/src/firebase';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../redux/userSlice';
+
 
 export const Register = () => {
-  // Import state dan fungsi yang diperlukan
-
+  
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
 
   const notify = () =>
@@ -39,6 +43,7 @@ export const Register = () => {
       notify();
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data)
     }
   };
 
@@ -69,8 +74,49 @@ export const Register = () => {
     },
   });
 
+  const handleGoogleRegister = async () => {
+    try {
+        const userData = await registerWithGoogle();
+        console.log(userData);
+  
+        const response = await axios.post('http://localhost:8000/api/user/register-google', { googleUserData: userData })
+        console.log(response.data);
+        localStorage.setItem('token', response.data.token);
+        
+        dispatch(setData(response.data.result));
+       
+          toast.success(response.data.message, {
+            position: 'top-right',
+            autoClose: 9000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        
+        navigate('/')
+    } catch (error) {
+        console.log("Error from handle Google Register Front-end", error);
+        
+          toast.error(error.response.data.message, {
+            position: 'top-right',
+            autoClose: 9000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        
+    }
+  }
+
   return (
     <div className="flex justify-center items-center h-screen">
+      
       <Card
         color="transparent"
         shadow={false}
@@ -193,8 +239,19 @@ export const Register = () => {
             type="submit"
             className="mt-6 bg-yellow-500 text-black"
             fullWidth
+            variant="outlined"
+            loading={true}
           >
             Register
+          </Button>
+          <Button
+            onClick={handleGoogleRegister}
+            className="mt-6 bg-yellow-500 text-black"
+            fullWidth
+            variant="outlined"
+            loading={true}
+          >
+            Register with Google
           </Button>
 
           <ToastContainer />

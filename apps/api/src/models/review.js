@@ -10,6 +10,7 @@ export default class Review extends Model {
     // define association here
     Review.belongsTo(models.User);
     Review.belongsTo(models.Property);
+    Review.belongsTo(models.Transaction);
   }
 }
 

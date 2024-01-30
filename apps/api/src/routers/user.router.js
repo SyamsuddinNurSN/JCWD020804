@@ -1,7 +1,17 @@
 import { Router } from 'express';
-import { createUser, keepLogin, login } from '../controllers/user.controller';
+import {
+  becomeTenant,
+  createUser,
+  keepLogin,
+  login,
+  userRegisterWithGoogle,
+  resetPassword,
+  updateUserPassword,
+  editProfile,
+  verify,
+} from '../controllers/user.controller';
 import { verifyToken } from '../middleware/auth';
-
+const { multerUpload } = require('../middleware/multer');
 const userRouter = Router();
 
 // GET
@@ -11,18 +21,36 @@ const userRouter = Router();
 // });
 
 // POST
-userRouter.post('/register', async (req, res) => {
-  await createUser(req);
-  res.send('Account created');
-});
+userRouter.post('/register', createUser);
 
 userRouter.post('/login', async (req, res) => {
   const result = await login(req);
   res.status(!result.code ? 200 : result.code).send(result);
-  console.log('result',result);
+  console.log('result', result);
 });
 
-userRouter.get('/keep-login', verifyToken, keepLogin )
+userRouter.patch('/verify/:id', verify);
 
+userRouter.patch('/update-password', updateUserPassword);
+
+userRouter.patch('/reset-password', resetPassword);
+
+userRouter.get('/keep-login', verifyToken, keepLogin);
+
+userRouter.patch(
+  '/edit-profile/:id',
+  verifyToken,
+  multerUpload().single('picture'),
+  editProfile,
+);
+
+userRouter.patch(
+  '/become-tenant/:id',
+  verifyToken,
+  multerUpload().single('foto_ktp'),
+  becomeTenant,
+);
+
+userRouter.post('/register-google', userRegisterWithGoogle);
 
 export { userRouter };

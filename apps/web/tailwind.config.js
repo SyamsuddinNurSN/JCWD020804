@@ -9,6 +9,13 @@ module.exports = withMT({
     
   ],
   theme: {
+    // screens: {
+    //   tablet: "640px",
+    //   laptop: "1024px",
+    // },
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"],
+    },
     extend: {},
   },
   plugins: [],

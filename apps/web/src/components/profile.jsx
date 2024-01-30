@@ -13,6 +13,7 @@ export function ProfileMenu() {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('isTenant')
     navigate('/login');
     window.location.reload();
   };

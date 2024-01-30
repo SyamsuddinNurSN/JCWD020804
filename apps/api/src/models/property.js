@@ -20,7 +20,8 @@ export default class Property extends Model {
 export const init = (sequelize) => {
   Property.init({
     name: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.TEXT, allowNull: true}
+    description: {type: DataTypes.TEXT, allowNull: true},
+    picture: {type: DataTypes.STRING, allowNull: true}
   }, {
     sequelize,
     modelName: 'Property',
